@@ -1,13 +1,21 @@
+import * as React from "react";
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import EventListStack from './screens/EventListStack';
+import EventsCalendarScreen from './screens/EventsCalendarScreen';
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Events" component={EventListStack} />
+        <Tab.Screen name="Calendar" component={EventsCalendarScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
