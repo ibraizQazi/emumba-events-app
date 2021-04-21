@@ -44,6 +44,7 @@ const EventsCalendarScreen: React.FC = ({ navigation }) => {
             // hideDayNames={true}
             />
 
+
         </SafeAreaView>
     );
 };

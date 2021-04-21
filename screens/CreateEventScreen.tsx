@@ -7,6 +7,8 @@ import {
 import * as SQLite from 'expo-sqlite';
 import { Text, Button, Input } from 'react-native-elements';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import DropDownPicker from 'react-native-dropdown-picker';
+
 //   export interface Props {
 //     name: string;
 //     date?: string;
@@ -15,6 +17,7 @@ const db = SQLite.openDatabase('db.db');
 
 const CreateEventScreen: React.FC = ({ navigation }) => {
     const [eventName, setEventName] = React.useState('');
+    const [eventType, setEventType] = React.useState();
     const [eventDescription, setEventDescription] = React.useState('');
     const [date, setDate] = React.useState(new Date());
     const [startTime, setStartTime] = React.useState();
@@ -60,11 +63,47 @@ const CreateEventScreen: React.FC = ({ navigation }) => {
                 height: '100%',
                 padding: 10,
             }}>
-                <Text>Create Event!</Text>
+                <Text style={{
+                    fontSize: 24,
+                    fontWeight: '600',
+                    padding: 10,
+                }}>Create Event!</Text>
                 <Input
                     placeholder='Name'
                     onChangeText={value => setEventName(value)}
                 />
+                <View style={{
+                    flexDirection: 'row',
+                    // padding: 4,
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                }}>
+                    <Text style={{
+                        fontSize: 16,
+                        fontWeight: '400',
+                        paddingEnd: 10,
+                    }}>Event Type</Text>
+                    <DropDownPicker
+                        items={[
+                            { label: 'All', value: 'all' },
+                            { label: 'Event', value: 'event' },
+                            { label: 'Out of Office', value: 'outofoffice' },
+                            { label: 'Task', value: 'task' }
+                        ]}
+                        defaultValue={eventType}
+                        containerStyle={{ height: 40 }}
+                        style={{
+                            height: 50, width: 140,
+                            backgroundColor: '#fafafa'
+                        }}
+                        itemStyle={{
+                            justifyContent: 'flex-start'
+                        }}
+                        dropDownStyle={{ backgroundColor: '#fafafa' }}
+                        onChangeItem={item => setEventType(item)}
+                    />
+                </View>
+
                 <Input
                     placeholder='Description'
                     onChangeText={value => setEventDescription(value)}
