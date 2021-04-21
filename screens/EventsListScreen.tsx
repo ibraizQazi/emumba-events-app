@@ -4,13 +4,12 @@ import {
     Text,
     View,
     SafeAreaView,
-    Image,
-    Pressable,
-    Dimensions,
+    FlatList,
 } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import { Button, Overlay } from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
+import EventsCard from '../components/EventsCard';
 //   export interface Props {
 //     name: string;
 //     date?: string;
@@ -20,6 +19,7 @@ const db = SQLite.openDatabase('db.db');
 const EventsListScreen: React.FC = ({ navigation }) => {
     const [eventType, setEventType] = React.useState();
     const [events, setEvents] = React.useState([]);
+    const [newEvents, setNewEvents] = React.useState();
     const fetchData = () => {
         db.transaction(tx => {
             // sending 4 arguments in executeSql
@@ -33,6 +33,10 @@ const EventsListScreen: React.FC = ({ navigation }) => {
                 (txObj, error) => console.log('Error ', error)
             ); // end executeSQL
         }) // end transaction
+    };
+
+    const fetchNewEvents = () => {
+
     };
 
     const deleteEvent = (id) => {
@@ -98,8 +102,21 @@ const EventsListScreen: React.FC = ({ navigation }) => {
                     }}>
                 </Button>
             </View>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>EventsListScreen!</Text>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <FlatList
+                    style={{}}
+                    data={events}
+                    onEndReached={fetchNewEvents}
+                    extraData={newEvents}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => {
+                        return (
+                            <EventsCard
+
+                            />
+                        );
+                    }}
+                />
             </View>
         </SafeAreaView>
     );

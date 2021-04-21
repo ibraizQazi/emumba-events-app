@@ -43,7 +43,12 @@ const EventsCalendarScreen: React.FC = ({ navigation }) => {
             // hideExtraDays={true}
             // hideDayNames={true}
             />
-
+            {/* <FlatList
+                data={{}}
+                extraData={{}}
+                keyExtractor={item => item.id}
+                renderItem={renderItem}
+            /> */}
 
         </SafeAreaView>
     );
