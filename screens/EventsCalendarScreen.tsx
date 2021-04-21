@@ -3,9 +3,10 @@ import {
     Text,
     View,
     SafeAreaView,
-    Dimensions,
+    FlatList,
 } from 'react-native';
 import { Button } from 'react-native-elements';
+import { Calendar } from 'react-native-calendars';
 
 //   export interface Props {
 //     name: string;
@@ -13,12 +14,15 @@ import { Button } from 'react-native-elements';
 //   }
 
 const EventsCalendarScreen: React.FC = ({ navigation }) => {
+    const onDateSelected = (date) => {
+        console.log('selected date: ', date);
+    };
     return (
         <SafeAreaView style={{
             flex: 1,
             paddingTop: 22
         }}>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
                 <Text>EventsCalendarScreen!</Text>
                 <Button
                     title="+Create Events"
@@ -32,6 +36,14 @@ const EventsCalendarScreen: React.FC = ({ navigation }) => {
                     }}>
                 </Button>
             </View>
+            <Calendar
+                current={new Date()}
+                monthFormat="MMMM yyyy"
+                onDayPress={onDateSelected}
+            // hideExtraDays={true}
+            // hideDayNames={true}
+            />
+
         </SafeAreaView>
     );
 };
